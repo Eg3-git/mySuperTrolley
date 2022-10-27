@@ -9,4 +9,13 @@ def index(request):
 def searchResults(request):
     return render(request, 'trolley/searchresults.html')
 
+def account(request):
+    return render(request, 'trolley/account.html')
+
+def checkout(request):
+    return render(request, 'trolley/checkout.html')
+
+def productPage(request):
+    return render(request, 'trolley/product.html')
+
 # Create your views here.
