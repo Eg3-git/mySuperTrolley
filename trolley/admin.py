@@ -1,3 +1,5 @@
 from django.contrib import admin
+from trolley.models import *
 
-# Register your models here.
+admin.site.register(Product)
+
