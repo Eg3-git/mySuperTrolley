@@ -7,15 +7,19 @@ def index(request):
     return render(request, 'trolley/index.html', context=context_dict)
 
 def searchResults(request):
-    return render(request, 'trolley/searchresults.html')
+    context_dict = {'title': "Search Results"}
+    return render(request, 'trolley/searchresults.html', context=context_dict)
 
 def account(request):
-    return render(request, 'trolley/account.html')
+    context_dict = {'title': "Account"}
+    return render(request, 'trolley/account.html', context=context_dict)
 
 def checkout(request):
-    return render(request, 'trolley/checkout.html')
+    context_dict = {'title': "Checkout"}
+    return render(request, 'trolley/checkout.html', context=context_dict)
 
 def productPage(request):
-    return render(request, 'trolley/product.html')
+    context_dict = {'title': "Product"}
+    return render(request, 'trolley/product.html', context=context_dict)
 
 # Create your views here.

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title_block %}{% endblock %}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+
+    <div>
+        <a href="{% url 'searchResults' %}">Search results page</a>
+        <a href="{% url 'account' %}">Account page</a>
+        <a href="{% url 'checkout' %}">Checkout page</a>
+        <a href="{% url 'product' %}">Product page</a>
+    </div>
+</body>
+</html>
