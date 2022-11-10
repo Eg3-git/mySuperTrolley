@@ -1,5 +1,9 @@
 from django.contrib import admin
 from trolley.models import *
 
-admin.site.register(Product)
 
+class ProductAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+
+admin.site.register(Product)

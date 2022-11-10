@@ -3,3 +3,15 @@
 {% block title_block %}Home{% endblock %}
 
 {% load static %}
+
+{% block body_block %}
+    {% if products %}
+        <ul>
+            {% for p in products %}
+                <li>
+                    <a href="{% url 'product' p.slug %}">{{ p.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

@@ -1,11 +1,13 @@
 import os
 import django
-from trolley.models import Product
-from webScraper import getInfo
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mySuperTrolley.settings')
 
 django.setup()
+
+from trolley.models import Product
+from webScraper import getInfo
 
 
 def populate():

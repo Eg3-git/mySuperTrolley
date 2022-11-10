@@ -6,5 +6,5 @@ urlpatterns = [
     path('searchresults/', views.searchResults, name='searchResults'),
     path('account/', views.account, name='account'),
     path('checkout/', views.checkout, name='checkout'),
-    path('product/', views.productPage, name='product'),
+    path('product/(<slug:pname_slug>/', views.productPage, name='product'),
 ]
