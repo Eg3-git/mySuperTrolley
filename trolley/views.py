@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from trolley.models import Product
+from django.db.models import Q
 
 
 def index(request):
     context_dict = {'title': "Homepage"}
     context_dict['products'] = Product.objects.all()[1:6]
-    for p in context_dict['products']:
-        print(p.name, p.slug)
+
     return render(request, 'trolley/index.html', context=context_dict)
 
 def searchResults(request):
     context_dict = {'title': "Search Results"}
+    query = request.GET.get("q")
+    results = Product.objects.filter(Q(name__icontains=query))
+    context_dict['products'] = results
     return render(request, 'trolley/searchresults.html', context=context_dict)
 
 def account(request):

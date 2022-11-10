@@ -6,8 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title_block %}{% endblock %}</title>
+
 </head>
 <body>
+    <form action="{% url 'searchResults' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
+    </form>
+
     <h1>{{ title }}</h1>
 
     {% block body_block %}{% endblock %}

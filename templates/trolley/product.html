@@ -1,5 +1,13 @@
 {% extends 'trolley/base.html' %}
 
+{% load static %}
+
 {% block title_block %}Product{% endblock %}
 
-{% load static %}
+{% block body_block %}
+    {% if products %}
+        <h1>{{ products.name }}</h1>
+    {% else %}
+        <strong>No Products here</strong>
+    {% endif %}
+{% endblock %}

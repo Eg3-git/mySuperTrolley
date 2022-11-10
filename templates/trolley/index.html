@@ -7,7 +7,7 @@
 {% block body_block %}
     {% if products %}
         <ul>
-            {% for p in products %}
+            {% for p in p_suggestions %}
                 <li>
                     <a href="{% url 'product' p.slug %}">{{ p.name }}</a>
                 </li>

@@ -3,3 +3,13 @@
 {% block title_block %}Search Results{% endblock %}
 
 {% load static %}
+
+{% block body_block %}
+<ul>
+    {% for p in products %}
+        <li>
+            <a href="{% url 'product' p.slug %}">{{ p.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
