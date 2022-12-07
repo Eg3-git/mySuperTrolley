@@ -5,9 +5,14 @@
 {% block title_block %}Product{% endblock %}
 
 {% block body_block %}
-    {% if products %}
-        <h1>{{ products.name }}</h1>
+    {% if product %}
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.price }}</p>
+        <button data-product="{{ product.id }}" data-action="add" class="update-basket">
+            Add to Basket</button>
     {% else %}
         <strong>No Products here</strong>
     {% endif %}
+
+    <script type="text/javascript" src="{% static 'js/basket.js' %}"></script>
 {% endblock %}

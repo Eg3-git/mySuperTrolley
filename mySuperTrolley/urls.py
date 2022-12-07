@@ -24,4 +24,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('trolley/', include('trolley.urls')),
     path('admin/', admin.site.urls),
+    path('update_item/', views.updateItem, name='update_item'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

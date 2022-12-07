@@ -1,5 +1,7 @@
+import json
+
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from trolley.models import Product
 from django.db.models import Q
 from trolley.forms import *
@@ -21,6 +23,18 @@ def searchResults(request):
     context_dict['products'] = results
     return render(request, 'trolley/searchresults.html', context=context_dict)
 
+def basket(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+        order = {'calculate_basket_total':0, 'get_basket_quantities':0}
+
+    context = {'items':items, 'order':order}
+    return render(request, 'trolley/basket.html', context)
+
 
 def account(request):
     context_dict = {'title': "Account"}
@@ -37,9 +51,9 @@ def productPage(request, pname_slug):
 
     try:
         products = Product.objects.get(slug=pname_slug)
-        context_dict['products'] = products
+        context_dict['product'] = products
     except Product.DoesNotExist:
-        context_dict['products'] = None
+        context_dict['product'] = None
 
     return render(request, 'trolley/product.html', context=context_dict)
 
@@ -84,8 +98,30 @@ def user_login(request):
     else:
         return render(request, 'trolley/login.html', {})
 
-
 @decorators.login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+def updateItem(request):
+    data = json.loads(request.body)
+    pID = data['productID']
+    action = data['action']
+
+    customer = request.user
+    product = Product.objects.get(id=pID)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+    orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
+    if action == 'add':
+        orderItem.quantity += 1
+    elif action == 'remove':
+        orderItem.quantity -= 1
+
+    orderItem.save()
+
+    if orderItem.quantity <= 0:
+        orderItem.delete()
+
+    return JsonResponse("Item added", safe=False)

@@ -9,6 +9,26 @@
 
 </head>
 <body>
+    <script type="text/javascript">
+        var user = '{{ request.user }}'
+
+        function getToken(name){
+            var cookievalue = null;
+            if (document.cookie && document.cookie !== ''){
+                var cookies = document.cookie.split(';');
+                for (var i=0; i<cookies.length; i++){
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length +1) === (name + '=')){
+                        cookievalue = decodeURIComponent(cookie.substring(name.length+1));
+                        break;
+                    }
+                }
+            }
+            return cookievalue;
+        }
+        var csrftoken = getToken('csrftoken');
+    </script>
+
     <form action="{% url 'searchResults' %}" method="get">
         <input name="q" type="text" placeholder="Search...">
     </form>
@@ -18,15 +38,19 @@
     {% block body_block %}{% endblock %}
 
     <div>
+        <a href="{% url 'index' %}">Home</a>
         <a href="{% url 'searchResults' %}">Search results page</a>
         <a href="{% url 'account' %}">Account page</a>
-        <a href="{% url 'checkout' %}">Checkout page</a>
+        <a href="{% url 'basket'  %}">Basket</a>
         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">Logout</a>
+
         {% else %}
             <a href="{% url 'register' %}">Sign Up</a>
             <a href="{% url 'login' %}">Login</a>
         {% endif %}
     </div>
+
+
 </body>
 </html>
