@@ -9,9 +9,8 @@ from django.contrib.auth import authenticate, login, logout, decorators
 from django.urls import reverse
 
 
-def index(request):
-    context_dict = {'title': "Homepage"}
-    context_dict['products'] = Product.objects.all()[1:6]
+def index(request, ordered=False):
+    context_dict = {'title': "Homepage", 'ordered': ordered, 'products': Product.objects.all()[1:6]}
 
     return render(request, 'trolley/index.html', context=context_dict)
 
@@ -40,9 +39,26 @@ def account(request):
     context_dict = {'title': "Account"}
     return render(request, 'trolley/account.html', context=context_dict)
 
+def my_orders(request):
+    customer = request.user
+    orders = Order.objects.filter(customer=customer, complete=True)
+    orderinfo = []
+    for order in orders:
+        orderinfo.append((order, order.orderitem_set.all()))
+    context = {'orders':orderinfo}
+    return render(request, 'trolley/orders.html', context=context)
 
 def checkout(request):
-    context_dict = {'title': "Checkout"}
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        totalQuantity = order.get_basket_quantities
+    else:
+        items = []
+        order = {'calculate_basket_total':0, 'get_basket_quantities':0, 'shipping':False}
+        totalQuantity = order['get_basket_quantities']
+    context_dict = {'items': items, 'order':order, 'totalQuantity':totalQuantity}
     return render(request, 'trolley/checkout.html', context=context_dict)
 
 
@@ -125,3 +141,16 @@ def updateItem(request):
         orderItem.delete()
 
     return JsonResponse("Item added", safe=False)
+
+def placeOrder(request):
+
+    if request.method == 'POST':
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order.complete = True
+        ordered = True
+        order.save()
+    else:
+        ordered = False
+
+    return index(request, ordered)

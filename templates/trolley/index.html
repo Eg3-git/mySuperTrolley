@@ -5,6 +5,10 @@
 {% load static %}
 
 {% block body_block %}
+    {% if ordered %}
+    <h3>Order Placed</h3>
+    {% endif %}
+
     {% if products %}
         <ul>
             {% for p in p_suggestions %}

@@ -27,4 +27,11 @@
         </div>
         {% endfor %}
     </div>
+
+    <div>
+        <form id="place_form" method="post" action="{% url 'place-order' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="submit" name="place-order" value="Place Order" />
+        </form>
+    </div>
 {% endblock %}

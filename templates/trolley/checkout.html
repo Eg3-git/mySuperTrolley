@@ -1,5 +1,35 @@
 {% extends 'trolley/base.html' %}
+{% load static %}
 
 {% block title_block %}Checkout{% endblock %}
 
-{% load static %}
+{% block body_block %}
+    <p>Hello</p>
+
+    <div id="shipping-info"></div>
+
+    <div class="col">
+        <div class="box">
+            <a href="{% url 'basket' %}">Back to Basket</a>
+            <h3>Order Summary</h3>
+            <br>
+            {% for item in items %}
+            <div class="row">
+                <div style="flex: 2"><p>{{ item.product.name }}</p></div>
+                <div style="flex: 1"><p>{{ item.product.price }}</p></div>
+                <div style="flex: 1"><p>{{ item.quantity }}</p></div>
+            </div>
+            {% endfor %}
+            <h5>Items: {{ order.get_basket_quantities }}</h5>
+            <h5>Total: {{ order.calculate_basket_total }}</h5>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var shipping = '{{ order.shipping }}'
+
+        if (shipping == 'False'){
+            document.getElementById('shipping-info').innerHTML = ''
+        }
+    </script>
+{% endblock %}

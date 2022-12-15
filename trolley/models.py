@@ -35,6 +35,7 @@ class Order(models.Model):
     data_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=100, null=True)
+    shipping = True
 
     def __str__(self):
         return str(self.id)

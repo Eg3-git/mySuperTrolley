@@ -1,0 +1,33 @@
+{% extends 'trolley/base.html' %}
+{% load static %}
+
+{% block title_block %}My Orders{% endblock %}
+
+{% block style_block %}
+    .drop-content {
+        display: none;
+    }
+    .show {display: block;}
+{% endblock %}
+
+{% block body_block %}
+<h1>My Orders</h1>
+{% for order, items in orders %}
+    <h3>{{ order.data_ordered }} - {{ order.calculate_basket_total }}</h3>
+    <div class="dropdown">
+        <button onclick="drop()" class="dropbtn">Show</button>
+        <div id="dropEls" class="drop-content">
+            {% for item in items %}
+                <p>{{ item.product.name }} - {{ item.product.price }} - {{ item.quantity }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endfor %}
+
+    <script>
+    function drop(){
+        document.getElementById("dropEls").classList.toggle("show")
+    }
+    </script>
+{% endblock %}
