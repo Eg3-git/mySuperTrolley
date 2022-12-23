@@ -14,6 +14,8 @@ def index(request, ordered=False):
 
     return render(request, 'trolley/index.html', context=context_dict)
 
+def about(request):
+    return render(request, 'trolley/about.html')
 
 def searchResults(request):
     context_dict = {'title': "Search Results"}

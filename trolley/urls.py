@@ -3,6 +3,7 @@ from trolley import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('about/', views.about, name='about'),
     path('searchresults/', views.searchResults, name='searchResults'),
     path('account/', views.account, name='account'),
     path('checkout/', views.checkout, name='checkout'),
