@@ -9,9 +9,16 @@
     <h1>Login</h1>
     <form id="login_form" method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50" /><br />
-        Password: <input type="password" name="password" value="" size="50" /><br />
-        <input type="submit" value="submit" />
-
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="input_username">User Name</label>
+                <input type="text" name="username" class="form-control" id="input_username" placeholder="Enter your username" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="input_password">Password</label>
+                <input type="password" name="password" class="form-control" id="input_password" placeholder="Enter your password" size="50" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
     </form>
 {% endblock %}

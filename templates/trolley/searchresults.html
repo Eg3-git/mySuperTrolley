@@ -1,15 +1,28 @@
 {% extends 'trolley/base.html' %}
 
-{% block title_block %}Search Results{% endblock %}
+{% block title_block %}Search Results {% endblock %}
 
 {% load static %}
 
 {% block body_block %}
-<ul>
-    {% for p in products %}
-        <li>
-            <a href="{% url 'product' p.slug %}">{{ p.name }}</a>
-        </li>
-    {% endfor %}
-</ul>
+    <h1>Results for "{{ search_term }}"</h1>
+    <ul style="list-style: none">
+        {% for p in products %}
+            <li>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <img src="{% static 'img/wine.jpeg' %}" alt="wine" width="50" height="50">
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="{% url 'product' p.slug %}">{{ p.name }}</a>
+                        <p>£{{ p.price }}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <img src="{% static 'img/lidl.png' %}" alt="store" width="50" height="50">
+                    </div>
+                </div>
+
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

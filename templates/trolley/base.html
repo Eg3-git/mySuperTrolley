@@ -72,11 +72,21 @@
         </div>
     </nav>
 
-    <form action="{% url 'searchResults' %}" method="get">
-        <input name="q" type="text" placeholder="Search...">
-    </form>
 
-    <h1>{{ title }}</h1>
+    <div class="input-group">
+    <form action="{% url 'searchResults' %}" method="get">
+        <div class="row">
+            <div class="col">
+                <input name="q" type="search" placeholder="Search..." class="form-control rounded" aria-label="Search">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-outline-primary">Search</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+
 
     {% block body_block %}{% endblock %}
 

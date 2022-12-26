@@ -1,5 +1,7 @@
 {% extends 'trolley/base.html' %}
+{% load crispy_forms_filters %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title_block %}
     Register
@@ -8,14 +10,15 @@
 {% block body_block %}
     <h1>Register here</h1>
     {% if registered %}
-        You are registered
-        <a href="{% url 'index' %}">Return home</a>
+        <h1>You are registered!</h1>
+        <a href="{% url 'login' %}">Log In</a>
     {% else %}
         <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
-            {{ user_form.as_p }}
-            <input type="submit" name="submit" value="register" />
+            {{ user_form|crispy }}
+
+            <button type="submit" class="btn btn-success">Register</button>
         </form>
     {% endif %}
 {% endblock %}

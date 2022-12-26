@@ -22,6 +22,7 @@ def searchResults(request):
     query = request.GET.get("q")
     results = Product.objects.filter(Q(name__icontains=query))
     context_dict['products'] = results
+    context_dict['search_term'] = query
     return render(request, 'trolley/searchresults.html', context=context_dict)
 
 def basket(request):
