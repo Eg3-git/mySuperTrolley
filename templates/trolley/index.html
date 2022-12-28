@@ -4,10 +4,15 @@
 
 {% load static %}
 
-{% block body_block %}
+{% block header_block %}
     {% if ordered %}
-    <h3>Order Placed</h3>
+        <h1>Order Placed Successfully</h1>
+    {% else %}
+        <h1>Welcome to MegaTrolley</h1>
     {% endif %}
+{% endblock %}
+
+{% block body_block %}
 
     {% if products %}
         <ul>

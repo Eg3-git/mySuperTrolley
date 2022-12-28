@@ -4,9 +4,11 @@
 
 {% block title_block %}Product{% endblock %}
 
+{% block header_block %}{{ product.name }}{% endblock %}
+
 {% block body_block %}
     {% if product %}
-        <h1>{{ product.name }}</h1>
+        <p>{{ product.name }}</p>
         <p>{{ product.price }}</p>
         <button data-product="{{ product.id }}" data-action="add" class="update-basket">
             Add to Basket</button>

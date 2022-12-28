@@ -14,8 +14,10 @@ def index(request, ordered=False):
 
     return render(request, 'trolley/index.html', context=context_dict)
 
+
 def about(request):
     return render(request, 'trolley/about.html')
+
 
 def searchResults(request):
     context_dict = {'title': "Search Results"}
@@ -25,6 +27,7 @@ def searchResults(request):
     context_dict['search_term'] = query
     return render(request, 'trolley/searchresults.html', context=context_dict)
 
+
 def basket(request):
     if request.user.is_authenticated:
         customer = request.user
@@ -32,9 +35,9 @@ def basket(request):
         items = order.orderitem_set.all()
     else:
         items = []
-        order = {'calculate_basket_total':0, 'get_basket_quantities':0}
+        order = {'calculate_basket_total': 0, 'get_basket_quantities': 0}
 
-    context = {'items':items, 'order':order}
+    context = {'items': items, 'order': order}
     return render(request, 'trolley/basket.html', context)
 
 
@@ -42,14 +45,16 @@ def account(request):
     context_dict = {'title': "Account"}
     return render(request, 'trolley/account.html', context=context_dict)
 
+
 def my_orders(request):
     customer = request.user
     orders = Order.objects.filter(customer=customer, complete=True)
     orderinfo = []
     for order in orders:
         orderinfo.append((order, order.orderitem_set.all()))
-    context = {'orders':orderinfo}
+    context = {'orders': orderinfo}
     return render(request, 'trolley/orders.html', context=context)
+
 
 def checkout(request):
     if request.user.is_authenticated:
@@ -59,9 +64,9 @@ def checkout(request):
         totalQuantity = order.get_basket_quantities
     else:
         items = []
-        order = {'calculate_basket_total':0, 'get_basket_quantities':0, 'shipping':False}
+        order = {'calculate_basket_total': 0, 'get_basket_quantities': 0, 'shipping': False}
         totalQuantity = order['get_basket_quantities']
-    context_dict = {'items': items, 'order':order, 'totalQuantity':totalQuantity}
+    context_dict = {'items': items, 'order': order, 'totalQuantity': totalQuantity}
     return render(request, 'trolley/checkout.html', context=context_dict)
 
 
@@ -117,10 +122,12 @@ def user_login(request):
     else:
         return render(request, 'trolley/login.html', {})
 
+
 @decorators.login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
 
 def updateItem(request):
     data = json.loads(request.body)
@@ -145,8 +152,8 @@ def updateItem(request):
 
     return JsonResponse("Item added", safe=False)
 
-def placeOrder(request):
 
+def placeOrder(request):
     if request.method == 'POST':
         customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)

@@ -86,9 +86,15 @@
     </form>
     </div>
 
+    <h1>{% block header_block %}{% endblock %}</h1>
 
-
-    {% block body_block %}{% endblock %}
+    <div class="row g-0">
+        <div class="col-sm-2"><p>Here is the left box</p></div>
+        <div class="col">
+            {% block body_block %}{% endblock %}
+        </div>
+        <div class="col-sm-2 float-end"><p>Here is the right box</p></div>
+    </div>
 
     <div>
         <a href="{% url 'index' %}">Home</a>

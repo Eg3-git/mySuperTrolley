@@ -3,12 +3,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title_block %}
-    Register
-{% endblock %}
+{% block title_block %}Register{% endblock %}
+
+{% block header_block %}Register Here{% endblock %}
 
 {% block body_block %}
-    <h1>Register here</h1>
+
     {% if registered %}
         <h1>You are registered!</h1>
         <a href="{% url 'login' %}">Log In</a>

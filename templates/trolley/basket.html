@@ -4,8 +4,9 @@
 
 {% load static %}
 
+{% block header_block %}Here is your basket{% endblock %}
+
 {% block body_block %}
-    <h1>Here is your basket</h1>
     <h3>Total: £{{ order.calculate_basket_total }}</h3>
     <h3>Number of Items: {{ order.get_basket_quantities }}</h3>
 

@@ -3,6 +3,8 @@
 
 {% block title_block %}My Orders{% endblock %}
 
+{% block header_block %}My Orders{% endblock %}
+
 {% block style_block %}
     .drop-content {
         display: none;
@@ -11,7 +13,7 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>My Orders</h1>
+
 {% for order, items in orders %}
     <h3>{{ order.data_ordered }} - {{ order.calculate_basket_total }}</h3>
     <div class="dropdown">

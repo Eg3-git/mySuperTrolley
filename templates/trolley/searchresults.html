@@ -4,8 +4,9 @@
 
 {% load static %}
 
+{% block header_block %}Results for "{{ search_term }}"{% endblock %}
+
 {% block body_block %}
-    <h1>Results for "{{ search_term }}"</h1>
     <ul style="list-style: none">
         {% for p in products %}
             <li>
@@ -13,7 +14,7 @@
                     <div class="col-sm-1">
                         <img src="{% static 'img/wine.jpeg' %}" alt="wine" width="50" height="50">
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <a href="{% url 'product' p.slug %}">{{ p.name }}</a>
                         <p>£{{ p.price }}</p>
                     </div>
