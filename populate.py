@@ -7,11 +7,11 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mySuperTrolley.settings')
 django.setup()
 
 from trolley.models import Product
-from webScraper import getInfo
+from scrapers.Lidl import getLidlData
 
 
 def populate():
-    info = getInfo()
+    info = getLidlData()
 
     for title, data in info.items():
         p = add_product(title, data)

@@ -3,7 +3,7 @@ from urllib.request import urlopen
 from decimal import Decimal
 
 
-def getInfo():
+def getLidlData():
     p = set()
     info = {}
     url = "https://www.lidl.co.uk/food-offers"
@@ -25,6 +25,7 @@ def getInfo():
                     if n != 0:
                         title = soup.find("h1",
                                           {"class": "attributebox__headline attributebox__headline--h1"}).text.strip()
+                        print(title)
                         price = Decimal(soup.find("span", {"class": "pricebox__price"}).text.strip().split(" ")[1])
                         desc = soup.find("article", {"class": "textbody"})
                         data = "/n".join([d.text for d in desc.find_all("li")])
@@ -38,3 +39,4 @@ def getInfo():
 
     crawl(url, 0)
     return info
+getLidlData()
