@@ -12,14 +12,16 @@
             <li>
                 <div class="row">
                     <div class="col-sm-1">
-                        <img src="{% static 'img/wine.jpeg' %}" alt="wine" width="50" height="50">
+                        <img src="{{ p.picture.url }}" alt="product" width="50" height="50">
                     </div>
                     <div class="col-sm-4">
                         <a href="{% url 'product' p.slug %}">{{ p.name }}</a>
                         <p>£{{ p.price }}</p>
                     </div>
                     <div class="col-sm-3">
-                        <img src="{% static 'img/lidl.png' %}" alt="store" width="50" height="50">
+                        {% with 'img/'|add:p.retailer|lower|add:'.png' as fname %}
+                        <img src="{% static fname %}" alt="store" width="50" height="50">
+                        {% endwith %}
                     </div>
                 </div>
 
