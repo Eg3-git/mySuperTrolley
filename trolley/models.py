@@ -15,7 +15,9 @@ class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
-    desc = models.CharField(max_length=256, default="DESCRIPTION")
+    retailer = models.CharField(max_length=30, default="default/")
+    desc = models.CharField(max_length=500, default="DESCRIPTION")
+    picture = models.ImageField(blank=True)
     url = models.URLField(name="See on official website", default="Default Val")
     slug = models.SlugField()
 
@@ -25,6 +27,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Basket(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
