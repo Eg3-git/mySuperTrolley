@@ -14,12 +14,14 @@ from scrapers.Morrisons import getMorrisonsData
 
 def populate():
     info = getLidlData()
+    info.update(getMorrisonsData())
+    count = 0
 
     for title, data in info.items():
         p = add_product(title, data)
+        count+=1
 
-    for p in Product.objects.all():
-        print(p)
+    print(f"Added ", count, " to database")
 
 
 def add_product(title, data):
