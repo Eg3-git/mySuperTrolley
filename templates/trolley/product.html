@@ -4,14 +4,29 @@
 
 {% block title_block %}Product{% endblock %}
 
-{% block header_block %}{{ product.name }}{% endblock %}
+{% block header_block %}
+    {% if product %}
+    {{ product.name }}
+    {% else %}
+    Product Page
+    {% endif %}
+{% endblock %}
 
 {% block body_block %}
     {% if product %}
-        <p>{{ product.name }}</p>
-        <p>{{ product.price }}</p>
-        <button data-product="{{ product.id }}" data-action="add" class="update-basket">
+        <div class="row">
+            <div class="col">
+                <img src="{{ product.picture.url }}" alt="Product Image" width="200" height="200"/>
+                <p>£{{ product.price }}</p>
+                <button data-product="{{ product.id }}" data-action="add" class="update-basket">
             Add to Basket</button>
+            </div>
+            <div class="col">
+                <p>{{ product.desc }}</p>
+                <a href="{{ product.url }}">See on retailer's website</a>
+            </div>
+        </div>
+
     {% else %}
         <strong>No Products here</strong>
     {% endif %}
