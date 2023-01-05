@@ -19,13 +19,18 @@
             <div style="flex: 1"><strong>Total</strong></div>
         </div>
 
-        {% for item in items %}
-        <div class="row">
-            <div style="flex: 2"><p>{{ item.product.name }}</p></div>
-            <div style="flex: 1"><p>{{ item.product.price }}</p></div>
-            <div style="flex: 1"><p>{{ item.quantity }}</p></div>
-            <div style="flex: 1">£{{ item.calculate_total }}</div>
-        </div>
+        {% for retailer, items in retailers.items %}
+            <div class="row">
+                <h3>Products from {{ retailer }}</h3>
+            </div>
+            {% for item in items %}
+            <div class="row">
+                <div style="flex: 2"><p>{{ item.product.name }}</p></div>
+                <div style="flex: 1"><p>{{ item.product.price }}</p></div>
+                <div style="flex: 1"><p>{{ item.quantity }}</p></div>
+                <div style="flex: 1">£{{ item.calculate_total }}</div>
+            </div>
+            {% endfor %}
         {% endfor %}
     </div>
 

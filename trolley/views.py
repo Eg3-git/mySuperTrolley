@@ -33,11 +33,18 @@ def basket(request):
         customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
+        retailers = {}
+        for orderItem in items:
+            if orderItem.product.retailer in retailers:
+                retailers[orderItem.product.retailer].append(orderItem)
+            else:
+                retailers[orderItem.product.retailer] = [orderItem]
     else:
         items = []
         order = {'calculate_basket_total': 0, 'get_basket_quantities': 0}
+        retailers = {}
 
-    context = {'items': items, 'order': order}
+    context = {'items': items, 'order': order, 'retailers': retailers}
     return render(request, 'trolley/basket.html', context)
 
 
