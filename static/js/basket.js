@@ -1,17 +1,19 @@
-var basketButton = document.getElementsByClassName('update-basket')[0]
+var basketButtons = document.getElementsByClassName('update-basket')
+console.log(basketButtons)
 
-basketButton.addEventListener('click', function(){
-    var pID = this.dataset.product
-    var action = this.dataset.action
-    console.log('ID: ', pID, 'Action: ', action)
-
-    console.log('USER:', user)
-    if (user === 'AnonymousUser') {
-        console.log("not Authenticated")
-    }else {
-        updateUserOrder(pID, action)
-    }
-})
+for (var i=0; i<basketButtons.length; i++) {
+    basketButtons[i].addEventListener('click', function () {
+        var pID = this.dataset.product
+        var action = this.dataset.action
+        console.log('ID: ', pID, 'Action: ', action)
+        console.log('USER:', user)
+        if (user === 'AnonymousUser') {
+            console.log("not Authenticated")
+        } else {
+            updateUserOrder(pID, action)
+        }
+    })
+}
 
 function updateUserOrder(pID, action){
     var url = '/update_item/'
@@ -27,5 +29,6 @@ function updateUserOrder(pID, action){
         })
         .then((data) => {
             console.log('Data', data)
+            location.reload()
         })
 }
