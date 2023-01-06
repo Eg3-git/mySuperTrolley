@@ -23,6 +23,12 @@
             </div>
             <div class="col">
                 <p>{{ product.desc }}</p>
+            </div>
+            <div class="col">
+                {% with 'img/'|add:product.retailer|lower|add:'.png' as fname %}
+                    <img src="{% static fname %}" alt="store" width="200" height="200">
+                {% endwith %}
+                <br/>
                 <a href="{{ product.url }}">See on retailer's website</a>
             </div>
         </div>
