@@ -6,11 +6,20 @@
 
 {% block header_block %}
     {% if ordered %}
-        <h1>Order Placed Successfully</h1>
+        Order Placed Successfully
     {% else %}
-        <h1>Welcome to MegaTrolley</h1>
+        Welcome to MegaTrolley
     {% endif %}
 {% endblock %}
+
+{% block sub_header %}
+    {% if ordered %}
+        Thank You for Shopping With Us!
+    {% else %}
+        Shop Multiple Retailers From One Site
+    {% endif %}
+{% endblock %}
+
 
 {% block body_block %}
 
