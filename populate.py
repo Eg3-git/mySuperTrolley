@@ -13,22 +13,23 @@ from scrapers.Morrisons import getMorrisonsData
 
 
 def populate():
-    info = getLidlData()
-    info.update(getMorrisonsData())
-    count = 0
+    process_data(getLidlData(), 0)
+    process_data(getMorrisonsData(), 1)
 
+
+
+def process_data(info, scraper_no, count=0):
     for title, data in info.items():
         p = add_product(title, data)
         count+=1
-
-    print(f"Added ", count, " to database")
+    print("Added", count, "to database")
 
 
 def add_product(title, data):
     p = Product.objects.get_or_create(name=title)[0]
     p.price = data['price']
     p.desc = data['desc']
-    p.url = data['url']
+    p.site_url = data['url']
     p.retailer = data['retailer']
     p.save()
 
