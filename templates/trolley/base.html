@@ -108,26 +108,21 @@
     </div>
 
     <div class="row g-0">
-        <div class="col-sm-2"><p>Here is the left box</p></div>
+        <div class="col-sm-2">
+            <p><strong>Categories</strong></p>
+            <ul>
+                <li><a href="{% url 'readyResults' 'milk' %}">Milk</a></li>
+                <li><a href="{% url 'readyResults' 'bread' %}">Bread</a></li>
+                <li><a href="{% url 'readyResults' 'wine' %}">Wine</a></li>
+            </ul>
+        </div>
         <div class="col">
             {% block body_block %}{% endblock %}
         </div>
         <div class="col-sm-2 float-end"><p>Here is the right box</p></div>
     </div>
 
-    <div>
-        <a href="{% url 'index' %}">Home</a>
-        <a href="{% url 'searchResults' %}">Search results page</a>
-        <a href="{% url 'account' %}">Account page</a>
-        <a href="{% url 'basket'  %}">Basket</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}">Logout</a>
-            <a href="{% url 'my-orders' %}">Orders</a>
-        {% else %}
-            <a href="{% url 'register' %}">Sign Up</a>
-            <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </div>
+
 
     <script type="text/javascript" src="{% static 'js/basket.js' %}"></script>
 </body>

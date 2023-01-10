@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
     path('searchresults/', views.searchResults, name='searchResults'),
+    path('ready-result/<str:query>/', views.readyResults, name='readyResults'),
     path('account/', views.account, name='account'),
     path('checkout/', views.checkout, name='checkout'),
     path('product/(<slug:pname_slug>/', views.productPage, name='product'),

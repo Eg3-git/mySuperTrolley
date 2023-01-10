@@ -1,5 +1,5 @@
 import json
-
+import random
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from trolley.models import Product
@@ -10,7 +10,11 @@ from django.urls import reverse
 
 
 def index(request, ordered=False):
-    context_dict = {'title': "Homepage", 'ordered': ordered, 'products': Product.objects.all()[1:6]}
+    product_count = Product.objects.count()
+    suggested_ids = random.sample(range(1, product_count+1), 10)
+    suggestions = [Product.objects.get(id=p) for p in suggested_ids]
+
+    context_dict = {'title': "Homepage", 'ordered': ordered, 'suggestions': suggestions}
 
     return render(request, 'trolley/index.html', context=context_dict)
 
@@ -19,14 +23,19 @@ def about(request):
     return render(request, 'trolley/about.html')
 
 
-def searchResults(request):
+def searchResults(request, query=None):
     context_dict = {'title': "Search Results"}
-    query = request.GET.get("q")
+
+    if query is None:
+        query = request.GET.get("q")
+
     results = Product.objects.filter(Q(name__icontains=query))
     context_dict['products'] = results
     context_dict['search_term'] = query
     return render(request, 'trolley/searchresults.html', context=context_dict)
 
+def readyResults(request, query):
+    return searchResults(request, query)
 
 def basket(request):
     if request.user.is_authenticated:
