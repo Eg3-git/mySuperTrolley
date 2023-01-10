@@ -18,8 +18,12 @@
             <div class="col">
                 <img src="{{ product.picture.url }}" alt="Product Image" width="200" height="200"/>
                 <p>£{{ product.price }}</p>
-                <button data-product="{{ product.id }}" data-action="add" class="update-basket">
+                {% if in_basket %}
+                    <p><strong>Item in basket</strong></p>
+                {% else %}
+                    <button data-product="{{ product.id }}" data-action="add" class="update-basket">
             Add to Basket</button>
+                {% endif %}
             </div>
             <div class="col">
                 <p>{{ product.desc }}</p>

@@ -87,13 +87,17 @@ def checkout(request):
 
 
 def productPage(request, pname_slug):
-    context_dict = {'title': "Product"}
+    product = Product.objects.get(slug=pname_slug)
+    context_dict = {'in_basket':False, 'product':product}
 
-    try:
-        products = Product.objects.get(slug=pname_slug)
-        context_dict['product'] = products
-    except Product.DoesNotExist:
-        context_dict['product'] = None
+    if request.user.is_authenticated:
+        customer = request.user
+        order = Order.objects.get_or_create(customer=customer, complete=False)[0]
+        basket_items = order.orderitem_set.all()
+        for item in basket_items:
+            if item.product.id == product.id:
+                context_dict['in_basket'] = True
+                break
 
     return render(request, 'trolley/product.html', context=context_dict)
 
