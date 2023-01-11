@@ -30,7 +30,7 @@
             </div>
             <div class="col">
                 {% with 'img/'|add:product.retailer|lower|add:'.png' as fname %}
-                    <img src="{% static fname %}" alt="store" width="200" height="200">
+                    <img src="{% static fname %}" alt="store" width="100" height="100">
                 {% endwith %}
                 <br/>
                 <a href="{{ product.site_url }}">See on retailer's website</a>

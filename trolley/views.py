@@ -9,12 +9,32 @@ from django.contrib.auth import authenticate, login, logout, decorators
 from django.urls import reverse
 
 
+def get_basket(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        details = {'user_logged_in': True, 'has_items': False, 'basket_items': items, 'order': order}
+        if len(items) > 0:
+            details['has_items'] = True
+        return details
+    else:
+        return {'user_logged_in': False}
+
+
+def generate_context_dict(request, other_context=None):
+    context = {'basket_details': get_basket(request)}
+    if other_context is not None:
+        context.update(other_context)
+    return context
+
+
 def index(request, ordered=False):
     product_count = Product.objects.count()
-    suggested_ids = random.sample(range(1, product_count+1), 10)
+    suggested_ids = random.sample(range(1, product_count + 1), 10)
     suggestions = [Product.objects.get(id=p) for p in suggested_ids]
 
-    context_dict = {'title': "Homepage", 'ordered': ordered, 'suggestions': suggestions}
+    context_dict = generate_context_dict(request, {'ordered': ordered, 'suggestions': suggestions})
 
     return render(request, 'trolley/index.html', context=context_dict)
 
@@ -24,7 +44,7 @@ def about(request):
 
 
 def searchResults(request, query=None):
-    context_dict = {'title': "Search Results"}
+    context_dict = generate_context_dict(request)
 
     if query is None:
         query = request.GET.get("q")
@@ -34,8 +54,10 @@ def searchResults(request, query=None):
     context_dict['search_term'] = query
     return render(request, 'trolley/searchresults.html', context=context_dict)
 
+
 def readyResults(request, query):
     return searchResults(request, query)
+
 
 def basket(request):
     if request.user.is_authenticated:
@@ -58,7 +80,7 @@ def basket(request):
 
 
 def account(request):
-    context_dict = {'title': "Account"}
+    context_dict = generate_context_dict(request)
     return render(request, 'trolley/account.html', context=context_dict)
 
 
@@ -68,7 +90,7 @@ def my_orders(request):
     orderinfo = []
     for order in orders:
         orderinfo.append((order, order.orderitem_set.all()))
-    context = {'orders': orderinfo}
+    context = generate_context_dict(request, {'orders': orderinfo})
     return render(request, 'trolley/orders.html', context=context)
 
 
@@ -88,7 +110,7 @@ def checkout(request):
 
 def productPage(request, pname_slug):
     product = Product.objects.get(slug=pname_slug)
-    context_dict = {'in_basket':False, 'product':product}
+    context_dict = generate_context_dict(request, {'in_basket': False, 'product': product})
 
     if request.user.is_authenticated:
         customer = request.user

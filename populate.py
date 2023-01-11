@@ -13,15 +13,14 @@ from scrapers.Morrisons import getMorrisonsData
 
 
 def populate():
-    process_data(getLidlData(), 0)
-    process_data(getMorrisonsData(), 1)
+    process_data(getLidlData())
+    process_data(getMorrisonsData())
 
 
-
-def process_data(info, scraper_no, count=0):
+def process_data(info, count=0):
     for title, data in info.items():
         p = add_product(title, data)
-        count+=1
+        count += 1
     print("Added", count, "to database")
 
 
@@ -37,7 +36,7 @@ def add_product(title, data):
     with open("temp_img.jpg", "wb") as handler:
         handler.write(img_data)
 
-    p.picture.save(p.retailer+"/"+str(p.id)+".jpg", File(open("temp_img.jpg", "rb")))
+    p.picture.save(p.retailer + "/" + str(p.id) + ".jpg", File(open("temp_img.jpg", "rb")))
     return p
 
 

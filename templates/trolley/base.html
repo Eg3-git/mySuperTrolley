@@ -119,7 +119,27 @@
         <div class="col">
             {% block body_block %}{% endblock %}
         </div>
-        <div class="col-sm-2 float-end"><p>Here is the right box</p></div>
+        <div class="col-sm-2 float-end">
+        {% block right_block %}
+            <p><strong>Basket</strong></p>
+            {% if basket_details.user_logged_in %}
+                <p>Total: £{{ basket_details.order.calculate_basket_total }}</p>
+                <a href="{% url 'basket' %}">Go to basket</a>
+                {% if basket_details.has_items %}
+                    <ul>
+                        {% for item in basket_details.basket_items %}
+                            <li><a href="{% url 'product' item.product.slug %}">{{ item.product.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No items in basket</p>
+                {% endif %}
+            {% else %}
+                <p>Please log in to see your basket</p>
+            {% endif %}
+        {% endblock %}
+        </div>
+
     </div>
 
 
