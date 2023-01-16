@@ -18,7 +18,7 @@ class Product(models.Model):
     retailer = models.CharField(max_length=30, default="default/")
     desc = models.CharField(max_length=500, default="DESCRIPTION")
     picture = models.ImageField(blank=True)
-    site_url = models.URLField(name="See on official website", default="Default Val")
+    site_url = models.URLField(default="Default Val")
     slug = models.SlugField()
 
     def save(self, *args, **kwargs):
