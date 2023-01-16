@@ -110,7 +110,6 @@ def checkout(request):
 
 def productPage(request, pname_slug):
     product = Product.objects.get(slug=pname_slug)
-    print(product.site_url)
     context_dict = generate_context_dict(request, {'in_basket': False, 'product': product})
 
     if request.user.is_authenticated:
