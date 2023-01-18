@@ -18,6 +18,7 @@ def populate():
 
 
 def process_data(info, count=0):
+    print("Adding products to database")
     for title, data in info.items():
         p = add_product(title, data)
         count += 1

@@ -15,12 +15,13 @@
 {% block body_block %}
 
 {% for order, items in orders %}
-    <h3>{{ order.data_ordered }} - {{ order.calculate_basket_total }}</h3>
+    <h3>{{ order.data_ordered }} - £{{ order.calculate_basket_total }}</h3>
     <div class="dropdown">
-        <button onclick="drop()" class="dropbtn">Show</button>
+        <button onclick="drop()" class="btn btn-outline-primary">Show</button>
         <div id="dropEls" class="drop-content">
             {% for item in items %}
-                <p>{{ item.product.name }} - {{ item.product.price }} - {{ item.quantity }}</p>
+                <p>{{ item.quantity }} x <a href="{% url 'product' item.product.slug %}">{{ item.product.name }}</a> - £{{ item.product.price }}</p>
+
             {% endfor %}
         </div>
     </div>

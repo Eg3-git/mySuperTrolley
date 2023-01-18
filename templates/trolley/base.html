@@ -81,23 +81,22 @@
                         </li>
                     {% endif %}
                 </ul>
+
+                <div class="input-group ps-5">
+                    <div id="navbar-search-autocomplete" class="form-outline">
+                        <form action="{% url 'searchResults' %}" method="get">
+                            <input name="q" type="search" placeholder="Search" id="form1" class="form-control rounded" aria-label="Search">
+                        </form>
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
 
-    <div class="input-group">
-    <form action="{% url 'searchResults' %}" method="get">
-        <div class="row">
-            <div class="col">
-                <input name="q" type="search" placeholder="Search..." class="form-control rounded" aria-label="Search">
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-outline-primary">Search</button>
-            </div>
-        </div>
-    </form>
-    </div>
 
     <div class="has-bg-img">
         <img class="bg-img img-fluid" src="{% static 'img/market2.jpg' %}" alt="main">
@@ -124,7 +123,7 @@
             <p><strong>Basket</strong></p>
             {% if basket_details.user_logged_in %}
                 <p>Total: £{{ basket_details.order.calculate_basket_total }}</p>
-                <a href="{% url 'basket' %}">Go to basket</a>
+                <a class="btn btn-outline-dark" href="{% url 'basket' %}">Go to basket</a>
                 {% if basket_details.has_items %}
                     <ul>
                         {% for item in basket_details.basket_items %}
