@@ -10,9 +10,8 @@
     <h3>Total: £{{ order.calculate_basket_total }}</h3>
     <h3>Number of Items: {{ order.get_basket_quantities }}</h3>
 
+    <br>
     <div class="box">
-
-
         {% for retailer, items in retailers.items %}
             <div class="row">
                 <h3>Products from {{ retailer }}</h3>
@@ -39,6 +38,7 @@
                 <div style="flex: 1">£{{ item.calculate_total }}</div>
             </div>
             {% endfor %}
+            <br>
         {% endfor %}
     </div>
 
