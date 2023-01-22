@@ -1,6 +1,6 @@
 import json
 import random
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from trolley.models import Product
 from django.db.models import Q
@@ -70,13 +70,12 @@ def basket(request):
                 retailers[orderItem.product.retailer].append(orderItem)
             else:
                 retailers[orderItem.product.retailer] = [orderItem]
+        context = {'items': items, 'order': order, 'retailers': retailers}
+        return render(request, 'trolley/basket.html', context)
     else:
-        items = []
-        order = {'calculate_basket_total': 0, 'get_basket_quantities': 0}
-        retailers = {}
+        return HttpResponseRedirect(reverse('login'))
 
-    context = {'items': items, 'order': order, 'retailers': retailers}
-    return render(request, 'trolley/basket.html', context)
+
 
 
 def account(request):
