@@ -46,7 +46,7 @@
         <a class="btn btn-outline-dark" href="{% url 'index' %}">Continue Shopping</a>
         <form id="place_form" method="post" action="{% url 'place-order' %}" enctype="multipart/form-data">
             {% csrf_token %}
-            <input class="btn btn-success" type="submit" name="place-order" value="Place Order" />
+            <input class="btn btn-success" type="submit" name="place-order" value="Place Order" onclick="return confirm('Are you sure you want to place the order?')"/>
         </form>
     </div>
 {% endblock %}
