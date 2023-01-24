@@ -101,7 +101,9 @@
         <img class="bg-img img-fluid" src="{% static 'img/market2.jpg' %}" alt="main">
         <div class="front-text bg-white bg-opacity-75">
             <h1>&nbsp;{% block header_block %}{% endblock %}&nbsp;</h1>
-            <h5>&nbsp;{% block sub_header %}{% endblock %}&nbsp;</h5>
+            {% if sub_header %}
+                <h5>&nbsp;{% block sub_header %}{% endblock %}&nbsp;</h5>
+            {% endif %}
         </div>
     </div>
 

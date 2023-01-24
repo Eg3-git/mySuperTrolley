@@ -22,8 +22,8 @@ def get_basket(request):
         return {'user_logged_in': False}
 
 
-def generate_context_dict(request, other_context=None):
-    context = {'basket_details': get_basket(request)}
+def generate_context_dict(request, other_context=None, sub_header=False):
+    context = {'sub_header': sub_header, 'basket_details': get_basket(request)}
     if other_context is not None:
         context.update(other_context)
     return context
@@ -34,7 +34,7 @@ def index(request, ordered=False):
     suggested_ids = random.sample(range(1, product_count + 1), 10)
     suggestions = [Product.objects.get(id=p) for p in suggested_ids]
 
-    context_dict = generate_context_dict(request, {'ordered': ordered, 'suggestions': suggestions})
+    context_dict = generate_context_dict(request, {'ordered': ordered, 'suggestions': suggestions}, True)
 
     return render(request, 'trolley/index.html', context=context_dict)
 
