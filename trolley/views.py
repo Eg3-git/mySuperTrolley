@@ -118,6 +118,7 @@ def productPage(request, pname_slug):
     context_dict = generate_context_dict(request, {'in_basket': False, 'product': product})
 
     if request.user.is_authenticated:
+        context_dict['user_exists'] = True
         customer = request.user
         order = Order.objects.get_or_create(customer=customer, complete=False)[0]
         basket_items = order.orderitem_set.all()
@@ -125,6 +126,8 @@ def productPage(request, pname_slug):
             if item.product.id == product.id:
                 context_dict['in_basket'] = True
                 break
+    else:
+        context_dict['user_exists'] = False
 
     return render(request, 'trolley/product.html', context=context_dict)
 

@@ -21,8 +21,17 @@
                 {% if in_basket %}
                     <p><strong>Item in basket</strong></p>
                 {% else %}
-                    <button data-product="{{ product.id }}" data-action="add" class="update-basket">
-            Add to Basket</button>
+                    {% if user_exists %}
+                        <button data-product="{{ product.id }}" data-action="add" class="update-basket">
+                            Add to Basket
+                        </button>
+                    {% else %}
+                        <form action="{% url 'login' %}">
+                        <button type="submit">
+                            Add to Basket
+                        </button>
+                        </form>
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="col">
