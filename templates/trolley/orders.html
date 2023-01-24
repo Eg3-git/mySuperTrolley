@@ -8,7 +8,7 @@
 {% block body_block %}
 
     {% if has_orders %}
-        {% for order, items in orders %}
+        {% for order, items in orders reversed %}
             <h3>{{ order.data_ordered }} - £{{ order.calculate_basket_total }}</h3>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" id="dropdownButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
