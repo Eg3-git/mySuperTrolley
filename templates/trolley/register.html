@@ -11,14 +11,19 @@
 
     {% if registered %}
         <h1>You are registered!</h1>
-        <a href="{% url 'login' %}">Log In</a>
+        <p>Click <a href="{% url 'login' %}">here</a> to log in!</p>
     {% else %}
         <form id="user_form" method="post" action="{% url 'register' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
             {{ user_form|crispy }}
 
+            <br>
             <button type="submit" class="btn btn-success">Register</button>
         </form>
+        <br>
+        <p>Already have an account? <a href="{% url 'login' %}">Log in</a> instead!</p>
     {% endif %}
 {% endblock %}
+
+{% block right_block %}{% endblock %}
