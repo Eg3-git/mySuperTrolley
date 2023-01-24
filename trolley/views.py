@@ -163,11 +163,10 @@ def user_login(request):
                 return HttpResponse("Account disabled")
 
         else:
-            print("Invalid details")
-            return HttpResponse("Invalid details")
+            return render(request, 'trolley/login.html', {'attempted_login': True})
 
     else:
-        return render(request, 'trolley/login.html', {})
+        return render(request, 'trolley/login.html', {'attempted_login': False})
 
 
 @decorators.login_required
