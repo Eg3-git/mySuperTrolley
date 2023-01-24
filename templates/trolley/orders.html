@@ -14,19 +14,24 @@
 
 {% block body_block %}
 
-{% for order, items in orders %}
-    <h3>{{ order.data_ordered }} - £{{ order.calculate_basket_total }}</h3>
-    <div class="dropdown">
-        <button onclick="drop()" class="btn btn-outline-primary">Show</button>
-        <div id="dropEls" class="drop-content">
-            {% for item in items %}
-                <p>{{ item.quantity }} x <a href="{% url 'product' item.product.slug %}">{{ item.product.name }}</a> - £{{ item.product.price }}</p>
-
-            {% endfor %}
-        </div>
-    </div>
-
-{% endfor %}
+    {% if has_orders %}
+        {% for order, items in orders %}
+            <h3>{{ order.data_ordered }} - £{{ order.calculate_basket_total }}</h3>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" id="dropdownButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Show
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownButton">
+                    {% for item in items %}
+                        <p class="dropdown-item">{{ item.quantity }} x <a href="{% url 'product' item.product.slug %}">{{ item.product.name }}</a> - £{{ item.product.price }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    {% else %}
+        <h3>No recent orders</h3>
+    {% endif %}
 
     <script>
     function drop(){

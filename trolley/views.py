@@ -90,6 +90,12 @@ def my_orders(request):
     for order in orders:
         orderinfo.append((order, order.orderitem_set.all()))
     context = generate_context_dict(request, {'orders': orderinfo})
+
+    if len(orderinfo) == 0:
+        context['has_orders'] = False
+    else:
+        context['has_orders'] = True
+
     return render(request, 'trolley/orders.html', context=context)
 
 
