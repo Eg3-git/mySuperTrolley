@@ -17,7 +17,9 @@
             position: absolute;
             bottom: 2px;
             left: 8px;
-
+        }
+        .text-justify {
+            text-align: justify;
         }
     </style>
     <meta name="viewport" content="width=device.width, initial-scale=1">
@@ -120,7 +122,7 @@
                 <li><a href="{% url 'readyResults' 'wine' %}">Wine</a></li>
             </ul>
         </div>
-        <div class="col">
+        <div class="col pe-5">
             {% block body_block %}{% endblock %}
         </div>
         <div class="col-sm-2 float-end">
