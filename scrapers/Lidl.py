@@ -29,7 +29,7 @@ def getLidlData():
         if n != 0:
             try:
                 title = soup.find("h1", {"class": "attributebox__headline attributebox__headline--h1"}).text.strip()
-                price = Decimal(soup.find("span", {"class": "pricebox__price"}).text.strip().split(" ")[1])
+                price = soup.find("span", {"class": "pricebox__price"}).text.strip().split(" ")[1]
                 desc = soup.find("article", {"class": "textbody"}).get_text(separator="\n")
                 img_src = soup.find("img", {"class": "lazyload"}).get('src')
                 info[title] = {"price": price, "desc": desc, "url": url, "retailer": "Lidl", "img_src": img_src}
@@ -37,6 +37,7 @@ def getLidlData():
                 print("attribute error with url:", url)
             except decimal.InvalidOperation as io:
                 print("invalid conversion with url:", url)
+                print("->", soup.find("span", {"class": "pricebox__price"}).text.strip().split(" "))
 
         for link in soup.find_all('a', href=re.compile("/p/")):
             l = link.get('href')

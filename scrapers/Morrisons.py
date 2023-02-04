@@ -32,7 +32,7 @@ def getMorrisonsData():
         if n != 0:
             try:
                 title = soup.find("h1").text.strip()
-                price = Decimal(soup.find("h2", {"class": "bop-price__current"}).text.strip()[1:])
+                price = soup.find("h2", {"class": "bop-price__current"}).text.strip()[1:]
                 desc = soup.find("div", {"class": "gn-accordionElement__wrapper"}).get_text(separator="\n")
                 img_src = soup.find("img", {"class": "bop-gallery__image"}).get('src')
                 info[title] = {"price": price, "desc": desc, "url": url, "retailer": "Morrisons", "img_src": home_url+img_src}
